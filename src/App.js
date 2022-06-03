@@ -1,4 +1,5 @@
 import './App.css';
+import { useEffect, useState } from 'react';
 
 function App() {
   return (
@@ -9,15 +10,18 @@ function App() {
 }
 
 function Amount({ name = 'Oh this field has no name :(' }) {
-  return (
-    <div className="Amount">
-      <label>{name}</label>
-      <p></p>
-      <input
-        type="number"
-      />
-    </div>
-  );
-}
+    const [inputClassName, setInputClassName] = useState('positive');
+
+    const onChangeHandler = (event) => event.target.value < 0 ? setInputClassName("negative") : setInputClassName("positive")
+    return (
+      <div className="Amount">
+        <label>{name}</label>
+        <p></p>
+        <input
+          onChange={onChangeHandler} type="number" defaultValue={0} className={`amount-input-${inputClassName}`}
+        />
+      </div>
+    );
+  }
 
 export default App;
