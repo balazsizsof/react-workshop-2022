@@ -4,13 +4,14 @@ import { useEffect, useState } from 'react';
 function App() {
   return (
     <div className="App">
-      <Amount name="Euros" />
+      <Amount name="Euros" defaultValue={0} />
+      <Amount name="- Euros" defaultValue={-2} />
     </div>
   );
 }
 
-function Amount({ name = 'Oh this field has no name :(' }) {
-    const [inputClassName, setInputClassName] = useState('positive');
+function Amount({ name = 'Oh... this field has no name :(', defaultValue}) {
+    const [inputClassName, setInputClassName] = useState(defaultValue < 0 ? 'negative' : 'positive');
 
     const onChangeHandler = (event) => event.target.value < 0 ? setInputClassName("negative") : setInputClassName("positive")
     return (
@@ -18,7 +19,7 @@ function Amount({ name = 'Oh this field has no name :(' }) {
         <label>{name}</label>
         <p></p>
         <input
-          onChange={onChangeHandler} type="number" defaultValue={0} className={`amount-input-${inputClassName}`}
+          onChange={onChangeHandler} type="number" defaultValue={defaultValue} className={`amount-input-${inputClassName}`}
         />
       </div>
     );
