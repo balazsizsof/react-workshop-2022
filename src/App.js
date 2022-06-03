@@ -3,9 +3,19 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <label>Euros</label>
-       <p></p>
-      <input type="number" id="euro-input"/>
+      <Amount name="Euros" />
+    </div>
+  );
+}
+
+function Amount({ name = 'Oh this field has no name :(' }) {
+  return (
+    <div className="Amount">
+      <label>{name}</label>
+      <p></p>
+      <input
+        type="number"
+      />
     </div>
   );
 }
