@@ -1,49 +1,26 @@
 import './App.css';
 import { useEffect, useState } from 'react';
+import Converter from './components/Converter';
 
-function getExchangeRate() {
-  return Math.random() * 10000;
-}
+
 
 function App() {
-  const [exchangeRate, setExchangeRate] = useState(getExchangeRate());
-  const [eurosValue, setEurosValue] = useState(0)
-
-  useEffect(() => {
-		let timer = setTimeout(()=>{setExchangeRate(0)}, 5000);
-
-		return () => {
-			clearTimeout(timer);
-		}
-	}, [eurosValue]);
-
-  const onChangeHandler = (event) => {
-    setEurosValue(event.currentTarget.value)
+  const [conversionCountValue, setConversionCountValue] = useState(0)
+  
+  const onChangeHandler = () => {
+    var currentValue = conversionCountValue + 1
+    if(currentValue > 5) {
+      alert("Convert without limits by becoming a premium user")
+    }
+    setConversionCountValue(currentValue)
   }
 
 
   return (
     <div className="App">
-      <Amount name="$BTC" value={exchangeRate} inputType="text" isReadonly={true} />
-      <Amount name="Euros" value={eurosValue} inputType="number" isReadonly={false} onChange={onChangeHandler}/>
-    </div>
-  );
-}
-
-function Amount({ name = 'Oh... this field has no name :(', value , inputType, isReadonly, onChange}) {
-  const [inputClassName, setInputClassName] = useState(value < 0 ? 'negative' : 'positive');
-
-  const onChangeHandler = (event) => {
-    event.currentTarget.value < 0 ? setInputClassName("negative") : setInputClassName("positive")
-    onChange(event)
-  }
-
-  return (
-    <div className="Amount">
-      <label>{name}:</label><br></br>
-      <input
-        onChange={onChangeHandler} type={inputType} value={value} className={`amount-input-${inputClassName}`} readOnly={isReadonly}
-      />
+      <Converter cryptoName={"BTC"} exchangeRate={995} onChange={onChangeHandler} />
+      <Converter cryptoName={"ETH"} exchangeRate={1.2} onChange={onChangeHandler}/>
+      <Converter cryptoName={"Dogecoin"} exchangeRate={24} onChange={onChangeHandler}/>
     </div>
   );
 }
