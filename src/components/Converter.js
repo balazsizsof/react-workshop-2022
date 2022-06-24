@@ -1,11 +1,12 @@
 import Amount from "./Amount";
 import { useEffect, useState } from 'react';
 import './converter.css';
+import Premium from "./Premium";
 
-export default function Converter({ cryptoName, exchangeRate, onChange}) {
+export default function Converter({ cryptoName, exchangeRate, onChange }) {
     const [eurosValue, setEurosValue] = useState(0)
     const [cryptoValue, setCryptoValue] = useState(0)
-
+    
     const onChangeHandler = (currentBaseAmount) => {
         setEurosValue(currentBaseAmount)
         if (currentBaseAmount > 0) {
@@ -15,6 +16,8 @@ export default function Converter({ cryptoName, exchangeRate, onChange}) {
         }
         onChange()
     }
+
+    
 
     return (
         <div className="converter">
